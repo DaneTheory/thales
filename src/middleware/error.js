@@ -5,7 +5,7 @@ import envConfig from '../server/config/vars'
 
 
 // Basic Error Handler. TODO: Replace with more robust option
-const handler = (err, req, res, next) => {
+export const basicErrorHandler = (err, req, res, next) => {
   const response = {
     code: err.status,
     message: err.message || httpStatus[err.status],
@@ -19,10 +19,9 @@ const handler = (err, req, res, next) => {
   res.json(response)
   res.end()
 }
-exports.handler = handler
 
 // Convert Errors to APIError type. Custom Helper Util.
-exports.converter = (err, req, res, next) => {
+export const errorConverter = (err, req, res, next) => {
   let convertedError = err
   if (err instanceof expressValidation.ValidationError) {
     convertedError = new APIError({
@@ -38,14 +37,14 @@ exports.converter = (err, req, res, next) => {
       stack: err.stack,
     })
   }
-  return handler(convertedError, req, res)
+  return basicErrorHandler(convertedError, req, res)
 }
 
 // Basic Catchall for 404's, forwarding them to APIError.
-exports.notFound = (req, res, next) => {
+export const basicNotFoundCatcher = (req, res, next) => {
   const err = new APIError({
     message: 'Not found',
     status: httpStatus.NOT_FOUND,
   })
-  return handler(err, req, res)
+  return basicErrorHandler(err, req, res)
 }

@@ -12,7 +12,7 @@
   },
   "scripts": {
     "remove-node-modules": "rm -rf node_modules",
-    "remove-git": "rm -rf .git",
+    "remove-git": "rm -rf .git && git init",
     "get-deps": "yarn",
     "env-vars": "cp .env.example .env",
     "new-project": "yarn remove-git && yarn remove-node-modules && yarn get-deps && yarn env-vars",
@@ -82,6 +82,8 @@
     "body-parser": "^1.17.0",
     "chalk": "^2.3.2",
     "compression": "^1.6.2",
+    "config": "^1.30.0",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "cross-env": "^5.0.1",
     "dotenv-safe": "^4.0.4",

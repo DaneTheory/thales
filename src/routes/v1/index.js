@@ -1,9 +1,10 @@
-import express from 'express'
+import express, { Router } from 'express'
 
 
-const router = express.Router()
+const router = Router()
 
-router.get('/status', (req, res) => res.send('OK'))
+router.get('/', (req, res) => res.send('Welcome To Thales!'))
+router.get('/status', (req, res) => res.send('STATUS ROUTE'))
 router.use('/docs', express.static('docs'))
 
 
