@@ -17,6 +17,7 @@
     "env-vars": "cp .env.example .env",
     "new-project": "yarn remove-git && yarn remove-node-modules && yarn get-deps && yarn env-vars",
     "dev": "cross-env NODE_ENV=development nodemon ./src/index.js --exec \"node -r dotenv/config -r babel-register\"",
+    "dev:watch": "cross-env NODE_ENV=development nodemon ./src/index.js --exec \"node -r dotenv/config -r babel-register\" | yarn lint",
     "docker:dev": "cross-env NODE_ENV=development pm2-docker start ./src/index.js",
     "docker:remote-dev": "docker-compose -f ./docker-configs/docker-compose.yml -f ./docker-configs/docker-compose.dev.yml up",
     "prod": "cross-env NODE_ENV=production pm2 start ./src/index.js",
