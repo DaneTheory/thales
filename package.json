@@ -72,6 +72,7 @@
   ],
   "dependencies": {
     "@gorillab/health": "^1.0.0",
+    "assert": "^1.4.1",
     "async-error-catcher": "^1.2.0",
     "axios": "^0.16.2",
     "babel-cli": "^6.26.0",
@@ -82,6 +83,7 @@
     "better-console": "^1.0.1",
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.0",
+    "boom": "^7.2.0",
     "chalk": "^2.3.2",
     "compression": "^1.6.2",
     "config": "^1.30.0",
@@ -91,7 +93,9 @@
     "dotenv-safe": "^4.0.4",
     "express": "^4.16.2",
     "express-actuator": "^1.1.0",
+    "express-async-handler": "^1.1.1",
     "express-bandwidth": "^0.0.1",
+    "express-boom": "^2.0.0",
     "express-favicon-short-circuit": "^1.1.1",
     "express-ping": "^1.4.0",
     "express-response-metrics": "^0.5.0",
@@ -121,7 +125,9 @@
     "pretty-response": "^1.0.1",
     "rimraf": "^2.6.2",
     "socket.io": "^2.0.4",
-    "uuid": "^3.1.0"
+    "throw.js": "^3.0.1",
+    "uuid": "^3.1.0",
+    "winston": "^3.0.0-rc2"
   },
   "devDependencies": {
     "apidoc": "^0.17.5",

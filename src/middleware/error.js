@@ -15,9 +15,7 @@ export const basicErrorHandler = (err, req, res, next) => {
   if (envConfig.env !== 'development') {
     delete response.stack
   }
-  res.status(err.status)
-  res.json(response)
-  res.end()
+  res.status(err.status).json(response)
 }
 
 // Convert Errors to APIError type. Custom Helper Util.

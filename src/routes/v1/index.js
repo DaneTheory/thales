@@ -9,6 +9,8 @@ const router = Router()
 
 const fetchIndexRouteData = () => `Welcome to ${envConfig.serviceName}`
 const fetchDummyRouteData = () => "Successfully Accessed Dummy Route"
+const fetchWildCardRouteData = () => new Error()
+
 
 const indexRoute = async (req, res, next) => {
   const result = await fetchIndexRouteData()
@@ -28,6 +30,24 @@ const dummyRoute = async (req, res, next) => {
   })
 }
 
+const wildCardRoute = async (req, res, next) => {
+  const result = await fetchWildCardRouteData()
+  result.message = 'HEY! IM A MESSAGE'
+  result.statusCode = 402
+
+  // const p = () => Promise.resolve().then(data => {
+  //   return result
+  // }).catch(err => err)
+  // res.json({
+  //   message: result,
+  //   status: res.statusCode
+  // })
+  // const err = new Error(result)
+  // console.log(result)
+  next(result)
+}
+
+// router.get('*', wildCardRoute)
 router.get('/', indexRoute)
 router.get('/dummy', dummyRoute)
 

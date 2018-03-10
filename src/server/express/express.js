@@ -25,7 +25,7 @@ import actuator from 'express-actuator'
 import serverStatus from 'express-server-status'
 import expressMonitor from 'express-status-monitor'
 import health from 'express-ping'
-
+import boom from 'express-boom'
 
 
 const socketIO = socketio(envConfig.socketIO.port)
@@ -40,14 +40,15 @@ app.use(require('express-favicon-short-circuit'))
 app.use(morgan())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(useragent.express())
+// app.use(useragent.express())
 app.use(cookieParser())
 app.use(compress())
 app.use(methodOverride())
 app.use(helmet())
 app.use(cors())
-app.use(transform())
-app.use(bandwidth(bw => console.log(`Incoming Bandwidth: ${bw.incoming} || Outgoing Bandwidth: ${bw.outgoing}`) ))
+app.use(boom())
+// app.use(transform())
+// app.use(bandwidth(bw => console.log(`Incoming Bandwidth: ${bw.incoming} || Outgoing Bandwidth: ${bw.outgoing}`) ))
 
 app.use(actuator())
 // TODO: Make the response-metrics route an authenticated route, or at least the option
