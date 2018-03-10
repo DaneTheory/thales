@@ -1,5 +1,6 @@
 import moment from 'moment'
 import chalk from 'chalk'
+import util from 'util'
 
 
 const consoleLog    =   console.log
@@ -51,7 +52,7 @@ const ConsoleHelpers = (() => {
       Array.prototype.unshift.call(arguments, timestamp)
       consoleTrace.apply(this, arguments)
   }
-  
+
 })()
 
 
