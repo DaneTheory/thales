@@ -4,9 +4,10 @@ import util from 'util'
 
 const Mongoose = (config) => {
   mongoose.Promise = Promise
+  
+  const debug = require('debug')(`${config.get('name')}:index`)
 
-  if (config.get('env') === `development`) mongoose.set('debug', (collectionName, method, query, doc) =>
-    debug(`${collectionName}.${method}`, util.inspect(query, false, 20), doc))
+  if (config.get('env') === `development`) mongoose.set('debug', (collectionName, method, query, doc) => debug(`${collectionName}.${method}`, util.inspect(query, false, 20), doc))
 
   mongoose.connection.on('open', () => {
     if (config.get('env') === `development`) {
