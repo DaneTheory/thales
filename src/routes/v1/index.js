@@ -3,11 +3,13 @@ import util from 'util'
 
 import envConfig from '../../server/config/vars'
 import { mockLaggyResponse } from '../../utils/helperMethods'
+import DefaultAppConfig from '../../../DefaultAppConfig'
 
 
+const config = DefaultAppConfig()
 const router = Router()
 
-const fetchIndexRouteData = () => `Welcome to ${envConfig.serviceName}`
+const fetchIndexRouteData = () => `Welcome to ${config.get(`name`).toUpperCase()}`
 const fetchDummyRouteData = () => "Successfully Accessed Dummy Route"
 const fetchWildCardRouteData = () => new Error()
 
@@ -47,9 +49,15 @@ const wildCardRoute = async (req, res, next) => {
   next(result)
 }
 
+const errorRoute = async (req, res, next) => {
+  return next(new Error("This is an error and it should be logged to the console"))
+}
+
+
 // router.get('*', wildCardRoute)
 router.get('/', indexRoute)
 router.get('/dummy', dummyRoute)
+router.get('/error', errorRoute)
 
 router.use('/docs', express.static('docs'))
 
