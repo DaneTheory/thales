@@ -12,36 +12,10 @@ const DefaultAppConfig = () => {
       hostConfig,
       jwtSecretConfig,
       jwtExpirationConfig,
-      dbConfig
-      // sslConfig
+      dbConfig,
+      redisConfig
 
   const config = convict({
-    // identity: {
-      // name: {
-      //   doc: `Service Name`,
-      //   env: `SERVICE_NAME`,
-      //   format: globalConfig.validation.validateNameFormat(globalConfig.identity.name),
-      //   default: globalConfig.identity.name,
-      // },
-      // pid: {
-      //   doc: `Service Process ID`,
-      //   env: `SERVICE_PID`,
-      //   format: '*',
-      //   default: globalConfig.identity.pid,
-      // },
-      // uid: {
-      //   doc: `Service Process User ID`,
-      //   env: `SERVICE_UID`,
-      //   format: '*',
-      //   default: globalConfig.identity.uid,
-      // },
-      // gid: {
-      //   doc: `Service Process Group ID`,
-      //   env: `SERVICE_GID`,
-      //   format: '*',
-      //   default: globalConfig.identity.gid,
-      // }
-    // },
     env: {
       doc: `Service Environment`,
       env: `NODE_ENV`,
@@ -66,6 +40,18 @@ const DefaultAppConfig = () => {
       env: `SERVICE_NAME`,
       format: globalConfig.validation.validateNameFormat(globalConfig.identity.name),
       default: config.load(globalConfig.identity.serviceName),
+    },
+    description: {
+      doc: `Service Description`,
+      env: `SERVICE_DESCRIPTION`,
+      format: String,
+      default: config.load(globalConfig.identity.serviceDescription),
+    },
+    version: {
+      doc: `Service Version`,
+      env: `SERVICE_VERSION`,
+      format: String,
+      default: config.load(globalConfig.identity.serviceVersion),
     }
   }
   ipConfig = {
@@ -145,15 +131,42 @@ const DefaultAppConfig = () => {
         default: config.load(globalConfig.envDependency.dbUrl),
       },
     }
+  },
+  redisConfig = {
+    redis: {
+      env: `REDIS_URI`,
+      name: {
+        doc: `Redis Instance For Distibuted Communication Between Services`,
+        format: String,
+        default: config.load(globalConfig.identity.serviceName)
+      },
+      port: {
+        doc: `Redis Instance Port`,
+        format: `port`,
+        default: config.load(globalConfig.envDependency.redisPort)
+      },
+      ip: {
+        doc: `Redis Instance IP Address`,
+        format: `ipaddress`,
+        default: config.load(globalConfig.envDependency.ipAddress),
+      },
+      redisID: {
+        doc: `Redis Instance Database ID (a.k.a. The name of the Redis Instance Database)`,
+        format: Number,
+        default: config.load(globalConfig.envDependency.redisID),
+      },
+      redisUrl: {
+        doc: `Redis Instance Full URL`,
+        format: String,
+        default: config.load(globalConfig.envDependency.redisUrl),
+      },
+      redisSocketPath: {
+        doc: `Redis Instance WebSocket Connection Path`,
+        format: String,
+        default: config.load(globalConfig.envDependency.redisSocketPath),
+      }
+    }
   }
-  // sslConfig = {
-  //   sslConfig: {
-  //     doc: `Service SSL Config For Local Development`,
-  //     env: `SERVICE_SSL`,
-  //     format: `*`,
-  //     default: config.load(globalConfig.envDependency.sslConfig)
-  //   }
-  // }
 
   return config
 }

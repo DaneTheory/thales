@@ -1,38 +1,18 @@
-import displayRoutes from 'express-routemap'
-require('express-mongoose')
+require('express-mongoose');
 
-import DefaultAppConfig from '../DefaultAppConfig'
-import app from './server/express/express'
-import router from './routes/v1'
-import authRouter from './routes/auth'
-import { onAppLaunchMessage } from './utils/eventOutputMessages'
-import Mongoose from './server/mongoose/mongoose'
-import './utils/console/consoleHelpers'
+import DefaultAppConfig from '../DefaultAppConfig'; // eslint-disable-line import/first
+import service from './Config/Express'; // eslint-disable-line import/first
+import Mongoose from './Config/Mongoose'; // eslint-disable-line import/first
 
 
-const config = DefaultAppConfig()
-const debug = require('debug')(`${config.get('name')}:index`)
-const mongooseInst = () => Mongoose(config)
+const config = DefaultAppConfig();
+const debug = require('debug')(`${config.get('name')}:index`); // eslint-disable-line no-unused-vars
 
-Promise = require('bluebird')
+const mongooseInst = () => Mongoose(config);
 
-mongooseInst()
+Promise = require('bluebird'); // eslint-disable-line no-global-assign
 
-if (!module.parent) {
-  app.listen(config.get(`port`), () => {
-    if(config.get(`env`) === `development`) {
-      console.info(onAppLaunchMessage())
-      console.log(`UNPROTECTED ROUTES`)
-      displayRoutes(router)
-      console.log(`PROTECTED ROUTES`)
-      displayRoutes(authRouter)
-      displayRoutes(router, './logs/route-table.log')
-      displayRoutes(authRouter, './logs/auth-route-table.log')
-    } else {
-      console.info(onAppLaunchMessage())
-    }
-  })
-}
+mongooseInst();
 
 
-export default app
+export default service;

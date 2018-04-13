@@ -1,14 +1,20 @@
-import { serviceName, serviceProcessInfo } from './defaultConfig'
-import { serviceNameFormatValidation } from './formatValidation'
-import EnvDependency from './EnvDependency'
+import { serviceName, serviceDescription, serviceVersion, serviceProcessInfo } from './defaultConfig';
+import { serviceNameFormatValidation } from './formatValidation';
+import EnvDependency from './EnvDependency';
 
 
 const Config = (env) => {
-  const envMode = EnvDependency(env, serviceName)
+  const envMode = EnvDependency(env, serviceName);
   return {
     identity: {
       serviceName: {
-        name: serviceName()
+        name: serviceName(),
+      },
+      serviceDescription: {
+        description: serviceDescription(),
+      },
+      serviceVersion: {
+        version: serviceVersion(),
       },
       pid: serviceProcessInfo().pid,
       uid: serviceProcessInfo().uid,
@@ -19,38 +25,47 @@ const Config = (env) => {
     },
     envDependency: {
       ipAddress: {
-        ip: envMode.ip
+        ip: envMode.ip,
       },
       portNumber: {
-        port: envMode.port
+        port: envMode.port,
       },
       socketIOPortNumber: {
-        socketIOPort: envMode.socketIOPort
+        socketIOPort: envMode.socketIOPort,
       },
       hostInformation: {
-        host: `${envMode.host(serviceName())}.dev`
+        host: `${envMode.host(serviceName())}.dev`,
       },
       jwtSecretKeyValue: {
-        jwtSecret: envMode.jwtSecret
+        jwtSecret: envMode.jwtSecret,
       },
       jwtExpirationValue: {
-        jwtExpiration: envMode.jwtExpiration
+        jwtExpiration: envMode.jwtExpiration,
       },
       dbPort: {
-        dbPort: envMode.dbPort
+        dbPort: envMode.dbPort,
       },
       dbUrl: {
-        dbUrl: `mongodb://${envMode.ip}:${envMode.dbPort}/${envMode.host(serviceName())}`
+        dbUrl: `mongodb://${envMode.ip}:${envMode.dbPort}/${envMode.host(serviceName())}`,
       },
-      // sslConfig: {
-      //   ssl: envMode.ssl
-      // }
+      redisPort: {
+        redisPort: envMode.redisPort,
+      },
+      redisID: {
+        redisID: envMode.redisID,
+      },
+      redisUrl: {
+        redisUrl: envMode.redisUrl,
+      },
+      redisSocketPath: {
+        redisSocketPath: envMode.redisSocketPath,
+      },
     },
-    validation : {
+    validation: {
       validateNameFormat: serviceNameFormatValidation,
     },
-  }
-}
+  };
+};
 
 
-export default Config
+export default Config;
