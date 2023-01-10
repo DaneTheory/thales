@@ -68,7 +68,7 @@
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.0",
     "compression": "^1.6.2",
-    "convict": "^4.0.2",
+    "convict": "^6.2.4",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
     "cross-env": "^5.1.4",
